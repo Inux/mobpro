@@ -1,10 +1,14 @@
 package ch.hslu.mobpro.firstapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import ch.hslu.mobpro.firstapp.LifecycleLogActivity;
+import ch.hslu.mobpro.firstapp.QuestionActivity;
 
 /**
  * The main activity, displays some buttons.
@@ -29,15 +33,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startLogActivity(View v) {
-        // TODO: start LifecylceLogActivity
+        Intent la = new Intent(this, LifecycleLogActivity.class);
+        startActivity(la);
     }
 
     public void startBrowser(View v) {
-        // TODO: start Browser with http://www.hslu.ch
+        Intent bc = new Intent();
+        bc.setAction(Intent.ACTION_VIEW);
+        bc.setData(Uri.parse("http://www.hslu.ch"));
+        startActivity(bc);
     }
 
     public void startQuestionActivity(View v) {
-        // TODO: start QuestionActivity with question and wait for result.
+        Intent qa = new Intent(this, QuestionActivity.class);
+        qa.putExtra("question", "is Kotlin better than Java?");
+        startActivity(qa);
     }
 
     @Override

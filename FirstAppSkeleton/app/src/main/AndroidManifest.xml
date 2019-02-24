@@ -16,7 +16,6 @@
             </intent-filter>
         </activity>
         <activity android:name="ch.hslu.mobpro.firstapp.LifecycleLogActivity" />
-        <!-- TODO: Add registration of the question activity -->
+        <activity android:name="ch.hslu.mobpro.firstapp.QuestionActivity" />
     </application>
-
 </manifest>

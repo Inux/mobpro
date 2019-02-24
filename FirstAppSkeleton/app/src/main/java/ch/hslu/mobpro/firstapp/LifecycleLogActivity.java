@@ -11,6 +11,25 @@ import android.util.Log;
  * @author Ruedi Arnold
  */
 
+/*
+Notes:
+    start activity:
+        onCreate()
+        onStart()
+        onResume()
+    go out of app:
+        onPause()
+        onStop()
+    go into app again:
+        onRestart()
+        onStart()
+        onResume()
+    go out of activity:
+        onPause()
+        onStop()
+        onDestroy()
+*/
+
 public class LifecycleLogActivity extends Activity {
 
     @Override
@@ -20,7 +39,39 @@ public class LifecycleLogActivity extends Activity {
         Log.i("hslu_mobApp", "onCreate() aufgerufen");
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i("hslu_mobApp", "onStart() aufgerufen");
+    }
 
-    // TODO: Add further implementions of onX-methods.
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        Log.i("hslu_mobApp", "onRestart() aufgerufen");
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.i("hslu_mobApp", "onResume() aufgerufen");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("hslu_mobApp", "onPause() aufgerufen");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i("hslu_mobApp", "onStop() aufgerufen");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("hslu_mobApp", "onDestroy() aufgerufen");
+    }
 }
