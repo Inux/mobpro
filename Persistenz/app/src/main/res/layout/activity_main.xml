@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sectionTitleBackground"
+                android:padding="5dp"
+                android:text="@string/sectionTitle1"/>
+
+            <TextView
+                android:id="@+id/section1_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/section1_text" />
+
+            <TextView
+                android:id="@+id/section1_tee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/section1_tee" />
+
+            <Button
+                android:id="@+id/buttonTea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="startAppPreferenceActivity"
+                android:text="Set Tea Preferences" />
+
+            <Button
+                android:id="@+id/buttonDefault"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="setDefaultValues"
+                android:text="Set Default" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sectionTitleBackground"
+                android:padding="5dp"
+                android:text="@string/sectionTitle2"/>
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Externen Speicher benutzen" />
+
+
+
+            <EditText
+                android:id="@+id/textfield"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/placeholder" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:weightSum="1">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_save"
+                    android:id="@+id/button_save"
+                    android:layout_weight="0.49"
+                    android:onClick="saveText" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/button_load"
+                    android:id="@+id/button_load"
+                    android:layout_weight="0.49"
+                    android:onClick="loadText" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

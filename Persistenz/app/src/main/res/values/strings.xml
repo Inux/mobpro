@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Persistenz</string>
+    <string name="mainTitleText">HSLU Mobile Programming</string>
+    <string name="sectionTitle1">Application-Preferences</string>
+    <string name="section1_text">MainActivity.onResume() wurde seit der Installation dieser App ... mal aufgerufen.</string>
+    <string name="section1_tee">Ich trinke am liebsten ...</string>
+    <string name="title_activity_app_preference">AppPreferenceActivity</string>
+    <string name="sectionTitle2">Dateisystem</string>
+    <string name="placeholder">Irgenein Text</string>
+    <string name="button_save">Speichern</string>
+    <string name="button_load">Laden</string>
+</resources>
