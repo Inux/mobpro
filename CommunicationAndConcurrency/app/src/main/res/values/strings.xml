@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CommunicationAndConcurrency</string>
+    <string name="communication">Kommunikation</string>
+    <string name="comm_http_server">Kommunikation mit HTTP Server</string>
+    <string name="http_demo">HTTP Demos</string>
+    <string name="concurrency">Nebenläufigkeit</string>
+    <string name="block_ui_seven_seconds">GUI 7 Sekunden blockieren</string>
+    <string name="async_demo_task">ASYNCDEMOTASK starten</string>
+    <string name="demo_thread">DEMOTHREAD starten</string>
+    <string name="async_multi_task">ASYNCMULTITASK starten</string>
+</resources>
