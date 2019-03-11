@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="commons-lang-2.5.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-lang-2.5.jar!/"/>
+	</lib>
+	<lib name="commons-io-2.0.1.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/commons-io-2.0.1.jar!/"/>
+	</lib>
+	<lib name="httpclient-4.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpclient-4.2.jar!/"/>
+	</lib>
+	<lib name="httpcore-4.2.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/lib/httpcore-4.2.jar!/"/>
+	</lib>
+</component>

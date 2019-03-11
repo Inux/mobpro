@@ -1,0 +1,5 @@
+Welcome to Mobile Programming!
+
+This is just a dummy text file, used in an exercise of this module a HSLU.
+
+Happy hacking!
