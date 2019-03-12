@@ -1,8 +1,10 @@
-package com.example.commandconcurrency;
+package com.example.communicationandconcurrency;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,27 +19,27 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    void startCommHttpServer(View view) {
-
+    public void startCommHttpServer(View view) {
+        Log.i("MainActivity", "startCommHttpServer");
     }
 
-    void startHttpDemos(View view) {
-
+    public void startHttpDemos(View view) {
+        Log.i("MainActivity", "startHttpDemos");
     }
 
-    void startAsyncDemoTask(View view) {
-
+    public void startAsyncDemoTask(View view) {
+        Log.i("MainActivity", "startHttpDemos");
     }
 
-    void startDemoThread(View view) {
-
+    public void startDemoThread(View view) {
+        Log.i("MainActivity", "startHttpDemos");
     }
 
-    void blockUIforSevenSeconds(View view) {
-
+    public void blockUIforSevenSeconds(View view) {
+        Log.i("MainActivity", "startHttpDemos");
     }
 
-    void startAsyncMultiTask(View view) {
-
+    public void startAsyncMultiTask(View view) {
+        Log.i("MainActivity", "startHttpDemos");
     }
 }
