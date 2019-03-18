@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/sectionTitleBackground"
+                android:padding="5dp"
+                android:text="@string/communication"/>
+
+            <Button
+                android:id="@+id/buttonCommHttpServer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="startCommHttpServer"
+                android:text="@string/comm_http_server" />
+
+            <Button
+                android:id="@+id/buttonHttpDemos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="startHttpDemos"
+                android:text="@string/http_demo" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="@string/concurrency" />
+
+            <Button
+                android:id="@+id/buttonBlockUI"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="blockUIforSevenSeconds"
+                android:text="Set Tea Preferences" />
+
+            <Button
+                android:id="@+id/buttonAsyncDemoTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="startAsyncDemoTask"
+                android:text="@string/async_demo_task" />
+
+            <Button
+                android:id="@+id/buttonDemoThread"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="startDemoThread"
+                android:text="@string/demo_thread" />
+
+            <Button
+                android:id="@+id/buttonAsyncMultiTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="startAsyncMultiTask"
+                android:text="@string/async_multi_task" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
