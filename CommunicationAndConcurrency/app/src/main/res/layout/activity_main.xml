@@ -23,22 +23,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kommunikation mit HTTP-Server"
-        android:onClick="communicationWithHttpServer"
-        android:id="@+id/button_http_server" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="HTTP Demos"
         android:onClick="httpDemos"
         android:id="@+id/button_http_demos" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Kommunikation über Sockets"
-        android:id="@+id/button_com_sockets" />
 
     <TextView
         android:layout_width="match_parent"

@@ -25,6 +25,7 @@ public class MultiAsyncTask extends AsyncTask<URL,String,Void> {
     public MultiAsyncTask(Context mainActivity){
         this.mainActivity = mainActivity;
     }
+
     @Override
     protected Void doInBackground(URL... urls) {
         InputStream in = null;
@@ -47,7 +48,7 @@ public class MultiAsyncTask extends AsyncTask<URL,String,Void> {
     protected void onProgressUpdate(String... values) {
         super.onProgressUpdate(values);
         filmTitles[counter] = values[0];
-        Toast.makeText(mainActivity.getApplicationContext(),filmTitles[counter]+ " geladen",Toast.LENGTH_SHORT).show();
+        Toast.makeText(mainActivity.getApplicationContext(),filmTitles[counter]+ " loaded", Toast.LENGTH_SHORT).show();
         counter++;
     }
 
@@ -55,7 +56,7 @@ public class MultiAsyncTask extends AsyncTask<URL,String,Void> {
     protected void onPostExecute(Void aVoid) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mainActivity);
         dialogBuilder
-                .setTitle("Film Titel")
+                .setTitle("Film titles:")
                 .setItems(filmTitles,null)
                 .show();
     }

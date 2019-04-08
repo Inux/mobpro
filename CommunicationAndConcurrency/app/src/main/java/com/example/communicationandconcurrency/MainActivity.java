@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Log;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,15 +29,12 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void communicationWithHttpServer(View view) {
-    }
-
     public void demoThreadStarten(View view) {
         final Button button = (Button) view;
         if ((demoThread == null) || !(demoThread.isAlive())) {
             demoThread = createWaitThread(button);
             demoThread.start();
-            button.setText("DemoThread running...]");
+            button.setText("[DemoThread läuft...]");
         } else {
             Toast.makeText(this, "DemoThread runs already!", Toast.LENGTH_SHORT)
                     .show();
@@ -54,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 };
                 try {
+                    Log.i("DemoThread", "starting to wait for " + WAITING_TIME_MILLIS + "ms");
                     Thread.sleep(WAITING_TIME_MILLIS);
+                    Log.i("DemoThread", "finished waiting for " + WAITING_TIME_MILLIS + "ms");
                     MainActivity.this.runOnUiThread(doneRunnable);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

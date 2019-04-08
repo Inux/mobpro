@@ -67,17 +67,4 @@
         android:id="@+id/text_json"
         android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="XML Webservices aufrufen"
-        android:onClick="loadXML"
-        android:id="@+id/button_xml" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_xml"
-        android:layout_gravity="center_horizontal" />
-
 </LinearLayout>

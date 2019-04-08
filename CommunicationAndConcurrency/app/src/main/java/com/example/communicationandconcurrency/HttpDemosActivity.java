@@ -3,8 +3,8 @@ package com.example.communicationandconcurrency;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,27 +12,18 @@ import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 public class HttpDemosActivity extends AppCompatActivity {
-    private final String URLDATA = "http://wherever.ch/hslu/homer.jpg";
-    private final String URLDOCUMENT = "http://wherever.ch/hslu/loremIpsum.txt";
-    private final String URLJSON = "http://www.nactem.ac.uk/software/acromine/dictionary.py?sf=HTTP";
-    private final String URLXML = "http://services.aonaware.com/DictService/DictService.asmx/Define?word=android";
+    private final String JPG_URL = "http://wherever.ch/hslu/homer.jpg";
+    private final String TXT_URL = "http://wherever.ch/hslu/loremIpsum.txt";
+    private final String JSON_URL = "http://www.nactem.ac.uk/software/acromine/dictionary.py?sf=HTTP";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,21 +33,17 @@ public class HttpDemosActivity extends AppCompatActivity {
 
     public void loadData(View view) {
         AsyncTask asyncTask = new ImageDownloadTask();
-        String[] params = {URLDATA};
+        String[] params = {JPG_URL};
         asyncTask.execute(params);
 
     }
 
     public void loadDocument(View view) {
-        startAsyncTask(URLDOCUMENT);
+        startAsyncTask(TXT_URL);
     }
 
     public void loadJSON(View view) {
-        startAsyncTask(URLJSON);
-    }
-
-    public void loadXML(View view) {
-        startAsyncTask(URLXML);
+        startAsyncTask(JSON_URL);
     }
 
     private void showImage(Bitmap image) {
@@ -98,20 +85,6 @@ public class HttpDemosActivity extends AppCompatActivity {
         }
     }
 
-    public void showXML(InputStream in) {
-        try {
-            Document document = getXmlDocument(in);
-            Node firstDefinition = document.getElementsByTagName("Definition").item(0);
-            Element definition = (Element) firstDefinition;
-            Node dictName = definition.getElementsByTagName("Name").item(0);
-            Node wordDef = definition.getElementsByTagName("WordDefinition").item(0);
-            TextView textView = (TextView) findViewById(R.id.text_xml);
-            textView.setText("android: " + wordDef.getTextContent() + " [" + dictName.getTextContent() + "]");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private JSONArray getJsonArray(InputStream in) throws IOException{
         String json = readText(in);
         try {
@@ -120,31 +93,11 @@ public class HttpDemosActivity extends AppCompatActivity {
             throw new IOException("JSON parsing failed",ex);
         }
     }
-    private Document getXmlDocument(InputStream in) throws IOException {
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document xmlDocument= builder.parse(in);
-            xmlDocument.getDocumentElement().normalize();
-            return xmlDocument;
-        } catch (Exception ex) {
-            throw new IOException("XML parsing failed",ex);
-        }
-    }
 
     private void startAsyncTask(String url) {
         AsyncTask asyncTask = new TextDownloadTask();
         String[] params = {url};
         asyncTask.execute(params);
-    }
-
-    private boolean closeStream(InputStream in){
-        try {
-            in.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     private InputStream openHttpConnection(String urlString) {
@@ -189,14 +142,11 @@ public class HttpDemosActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(InputStream inputStream) {
-            if (URLDOCUMENT == urlString){
+            if (TXT_URL == urlString){
                 showText(inputStream);
-            } else if (URLJSON == urlString){
+            } else if (JSON_URL == urlString){
                 showJSON(inputStream);
-            } else if (URLXML == urlString){
-                showXML(inputStream);
             }
-
         }
     }
 
