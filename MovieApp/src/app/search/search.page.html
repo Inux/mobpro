@@ -1,0 +1,56 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            search
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-card-header>
+        <ion-card-title style="text-align:center;">Search</ion-card-title>
+        <ion-card-subtitle style="text-align:center;">Enter a movie title below and press enter or or search button.
+        </ion-card-subtitle>
+        <ion-input style="text-align:center;" placeholder="[movie title]" [(ngModel)]="searchQuery" input
+                   type=text></ion-input>
+        <ion-button expand="block" fill="outline" (click)="doSearch()">
+            <ion-icon name="search"></ion-icon>
+            Search
+        </ion-button>
+    </ion-card-header>
+
+    <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="searchChanged($event)"></ion-searchbar>
+
+    <ion-item>
+        <ion-label>Select Searchtype</ion-label>
+        <ion-select [(ngModel)]="type" (ionChange)="searchChanged($event)">
+            <ion-select-option value="">All</ion-select-option>
+            <ion-select-option value="movie">Movie</ion-select-option>
+            <ion-select-option value="series">Series</ion-select-option>
+            <ion-select-option value="episode">Episode</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-list>
+        <ion-item button *ngFor="let item of (results | async)" [routerLink]="['/', 'details', item.imdbID]">
+            <ion-avatar slot="start">
+                <img [src]="item.Poster" *ngIf="item.Poster != 'N/A'">
+            </ion-avatar>
+            <ion-label text-wrap>
+                <h3>{{ item.Title }}</h3>
+                {{ item.Year }}
+            </ion-label>
+            <ion-icon slot="end" *ngIf="item.Type == 'movie'" name="videocam"></ion-icon>
+            <ion-icon slot="end" *ngIf="item.Type == 'series'" name="tv"></ion-icon>
+            <ion-icon slot="end" *ngIf="item.Type == 'game'" name="logo-game-controller-b"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-title style="text-align:right;font-size:10px;">Movie App / HSLU</ion-title>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      List
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button *ngFor="let movie of movies" [routerLink]="['/', 'details', 'tt0167260']">
+      <ion-icon name="film" slot="start"></ion-icon>
+      {{movie.title}}
+    </ion-item>
+  </ion-list>
+  <!--
+    <div *ngIf="selectedItem" padding>
+      You navigated here from <b>{{selectedItem.title }}</b>
+    </div>
+  -->
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-title style="text-align:right;font-size:10px;">Movie App / HSLU</ion-title>
+  </ion-toolbar>
+</ion-footer>
