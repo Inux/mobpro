@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let movie of movies" [routerLink]="['/', 'details', 'tt0167260']">
+    <ion-item button *ngFor="let movie of movies" [routerLink]="['/', 'details', movie.id]">
       <ion-icon name="film" slot="start"></ion-icon>
       {{movie.title}}
     </ion-item>
