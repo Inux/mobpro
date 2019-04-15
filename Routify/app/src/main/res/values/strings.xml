@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Routify</string>
+    <string name="main_title">Routify</string>
+    <string name="main_welcomeText">Simplifies the way we find a way!</string>
+</resources>
