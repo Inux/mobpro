@@ -1,0 +1,51 @@
+package ch.hslu.mobpro.routify.model;
+
+public class Connection {
+    private String from;
+    private String to;
+    private Filters filters;
+    private Settings settings;
+
+    public Connection(String from, String to) {
+        this(from, to, null, null);
+    }
+
+    private Connection(String from, String to, Filters filters, Settings settings) {
+        this.from = from;
+        this.to = to;
+        this.filters = filters;
+        this.settings = settings;
+    }
+
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public String getTo() {
+        return to;
+    }
+
+    public void setTo(String to) {
+        this.to = to;
+    }
+
+    public Filters getFilters() {
+        return filters;
+    }
+
+    public void setFilters(Filters filters) {
+        this.filters = filters;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
+}
