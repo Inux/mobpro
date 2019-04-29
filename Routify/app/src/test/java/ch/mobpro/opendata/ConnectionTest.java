@@ -11,7 +11,7 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by cansik on 07.11.16.
+ * Created by haubschueh & inux (2019)
  */
 public class ConnectionTest {
     private TransportClient client;
@@ -26,7 +26,7 @@ public class ConnectionTest {
         city1 = "Basel SBB";
         city2 = "Zurich";
 
-        connectionDate = new Date(2016 - 1900, 1, 1, 15, 0, 0);
+        connectionDate = new Date(2019 - 1900, 1, 1, 15, 0, 0);
     }
 
     @Test
@@ -43,7 +43,7 @@ public class ConnectionTest {
 
         ConnectionResult result = client.getConnections(params);
         assertEquals("Timestamp not matching!",
-                Long.valueOf(1454335620),
+                Long.valueOf(1549030020),
                 result.getConnections().get(0).getFrom().getDepartureTimestamp());
     }
 }

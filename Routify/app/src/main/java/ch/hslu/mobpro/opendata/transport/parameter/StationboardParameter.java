@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by cansik on 07.11.16.
+ * Created by haubschueh & inux (2019)
  */
 public class StationboardParameter {
     private String station;

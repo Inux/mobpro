@@ -10,7 +10,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by cansik on 07.11.16.
+ * Created by haubschueh & inux (2019)
  */
 public class StationboardTest {
     private TransportClient client;
@@ -22,7 +22,7 @@ public class StationboardTest {
         client = new TransportClient();
 
         station = "Aarau";
-        id = "008502113";
+        id = "8502113";
     }
 
     @Test

@@ -1,7 +1,7 @@
 package ch.hslu.mobpro.opendata.transport.type;
 
 /**
- * Created by cansik on 06.11.16.
+ * Created by haubschueh & inux (2019)
  */
 public enum LocationType {
     /**

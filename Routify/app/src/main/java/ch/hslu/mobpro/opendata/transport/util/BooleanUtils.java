@@ -1,7 +1,7 @@
 package ch.hslu.mobpro.opendata.transport.util;
 
 /**
- * Created by cansik on 07.11.16.
+ * Created by haubschueh & inux (2019)
  */
 public class BooleanUtils {
     public static String toNumeralString(final Boolean input) {

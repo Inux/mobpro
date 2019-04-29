@@ -10,7 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by cansik on 06.11.16.
+ * Created by haubschueh & inux (2019)
  */
 public class LocationTest {
     private TransportClient client;
@@ -22,7 +22,7 @@ public class LocationTest {
 
     @Test
     public void testLocationByQuery() {
-        String city = "Basel";
+        String city = "Basel SBB";
 
         LocationResult result = client.getLocations(city, LocationType.All);
         assertEquals("Locations not matching!", city, result.getStations().get(0).getName());
@@ -30,7 +30,7 @@ public class LocationTest {
 
     @Test
     public void testLocationByCoordinates() {
-        String city = "Basel SBB";
+        String city = "Basel SBB (Haltestelle)";
 
         double x = 47.5476;
         double y = 7.5897;

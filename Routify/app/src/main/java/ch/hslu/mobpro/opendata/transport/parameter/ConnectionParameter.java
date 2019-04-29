@@ -1,7 +1,7 @@
 package ch.hslu.mobpro.opendata.transport.parameter;
 
-import ch.opendata.transport.type.AccessibilityType;
-import ch.opendata.transport.type.TransportationType;
+import ch.hslu.mobpro.opendata.transport.type.AccessibilityType;
+import ch.hslu.mobpro.opendata.transport.type.TransportationType;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by cansik on 06.11.16.
+ * Created by haubschueh & inux (2019)
  */
 public class ConnectionParameter {
     private String from;
