@@ -7,7 +7,7 @@ public class Connection {
     private Settings settings;
 
     public Connection(String from, String to) {
-        this(from, to, null, null);
+        this(from, to, new Filters(), new Settings());
     }
 
     private Connection(String from, String to, Filters filters, Settings settings) {
@@ -47,5 +47,10 @@ public class Connection {
 
     public void setSettings(Settings settings) {
         this.settings = settings;
+    }
+
+    @Override
+    public String toString() {
+        return "From: '" + from + "', To: '" + to + "', Filters: [ " + filters.toString() + " ], Settings: [ " + settings.toString() + " ]";
     }
 }

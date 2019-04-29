@@ -91,4 +91,9 @@ public class Settings {
     public void setSunday(Boolean sunday) {
         this.sunday = sunday;
     }
+
+    @Override
+    public String toString() {
+        return "ShowFrom: '" + showFrom + "', ShowTo: '" + showTo + "', Monday: '" + monday + "', Tuesday: '" + tuesday + "', Wednesday: '" + wednesday + "', Thursday: '" + thursday + "', Friday: '" + friday + "', Saturday: '" + saturday + "', Sunday: '" + sunday + "'";
+    }
 }

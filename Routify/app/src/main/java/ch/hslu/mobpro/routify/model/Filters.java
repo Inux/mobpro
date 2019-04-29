@@ -34,4 +34,9 @@ public class Filters {
     public void setTrainAllowed(Boolean trainAllowed) {
         this.trainAllowed = trainAllowed;
     }
+
+    @Override
+    public String toString() {
+        return "MaxDuration: '" + maxDuration + "', BusAllowed: '" + busAllowed + "', TrainAllowed: '" + trainAllowed + "'";
+    }
 }
