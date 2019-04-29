@@ -1,8 +1,14 @@
-package ch.mobpro.opendata;
+package ch.hslu.mobpro.opendata;
 
 import ch.hslu.mobpro.opendata.transport.TransportClient;
 import ch.hslu.mobpro.opendata.transport.model.ConnectionResult;
+import ch.hslu.mobpro.opendata.transport.model.LocationResult;
+import ch.hslu.mobpro.opendata.transport.model.Station;
+import ch.hslu.mobpro.opendata.transport.model.Stationboard;
+import ch.hslu.mobpro.opendata.transport.model.StationboardResult;
 import ch.hslu.mobpro.opendata.transport.parameter.ConnectionParameter;
+import ch.hslu.mobpro.opendata.transport.type.LocationType;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,5 +51,17 @@ public class ConnectionTest {
         assertEquals("Timestamp not matching!",
                 Long.valueOf(1549030020),
                 result.getConnections().get(0).getFrom().getDepartureTimestamp());
+    }
+
+    @Test
+    public void testConnectionSearch() {
+        StationboardResult result = client.getStationboardByStation("Zurich");
+        for(Stationboard board : result.getStationboard()) {
+            System.out.println(board.getName());
+        }
+        LocationResult lresults = client.getLocations("Zurich", LocationType.Station);
+        for(Station station : lresults.getStations()) {
+            System.out.println(station.getName());
+        }
     }
 }

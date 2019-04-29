@@ -1,4 +1,4 @@
-package ch.mobpro.opendata;
+package ch.hslu.mobpro.opendata;
 
 import ch.hslu.mobpro.opendata.transport.TransportClient;
 import ch.hslu.mobpro.opendata.transport.model.LocationResult;
