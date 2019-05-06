@@ -10,7 +10,7 @@ public class Connection {
         this(from, to, new Filters(), new Settings());
     }
 
-    private Connection(String from, String to, Filters filters, Settings settings) {
+    public Connection(String from, String to, Filters filters, Settings settings) {
         this.from = from;
         this.to = to;
         this.filters = filters;

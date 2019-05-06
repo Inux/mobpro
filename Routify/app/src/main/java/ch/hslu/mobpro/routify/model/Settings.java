@@ -20,6 +20,18 @@ public class Settings {
         this.showTo = LocalDateTime.of(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH), 23, 59);
     }
 
+    public Settings(LocalDateTime showFrom, LocalDateTime showTo, Boolean monday, Boolean tuesday, Boolean wednesday, Boolean thursday, Boolean friday, Boolean saturday, Boolean sunday) {
+        this.showFrom = showFrom;
+        this.showTo = showTo;
+        this.monday = monday;
+        this.tuesday = tuesday;
+        this.wednesday = wednesday;
+        this.thursday = thursday;
+        this.friday = friday;
+        this.saturday = saturday;
+        this.sunday = sunday;
+    }
+
     public LocalDateTime getShowFrom() {
         return showFrom;
     }

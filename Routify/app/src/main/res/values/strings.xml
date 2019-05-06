@@ -2,5 +2,27 @@
     <string name="app_name">Routify</string>
     <string name="main_title">Routify</string>
     <string name="main_welcomeText">Simplifies the way we find a way!</string>
+    <string name="database_name">routify-database</string>
     <string name="from_label">From:</string>
+    <string name="connection_title">Connection</string>
+    <string name="label_from">Start</string>
+    <string name="exampletext_from" />
+    <string name="label_to">Destination</string>
+    <string name="exampletext_to" />
+    <string name="filters_title">Filters</string>
+    <string name="label_duration">Maximum Duration</string>
+    <string name="label_bus_allowed">Bus allowed</string>
+    <string name="label_train_allowed">Train allowed</string>
+    <string name="settings_title">Settings</string>
+    <string name="label_time_from">From</string>
+    <string name="label_time_to">To</string>
+    <string name="label_monday">Monday</string>
+    <string name="label_tuesday">Tuesday</string>
+    <string name="label_wednesday">Wednesday</string>
+    <string name="label_thursday">Thursday</string>
+    <string name="label_friday">Friday</string>
+    <string name="label_saturday">Saturday</string>
+    <string name="label_sunday">Sunday</string>
+    <string name="save_button_text">Save</string>
+    <string name="add_connection">+</string>
 </resources>

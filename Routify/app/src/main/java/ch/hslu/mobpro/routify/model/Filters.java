@@ -11,6 +11,12 @@ public class Filters {
         trainAllowed = true;
     }
 
+    public Filters(Integer maxDuration, Boolean busAllowed, Boolean trainAllowed) {
+        this.maxDuration = maxDuration;
+        this.busAllowed = busAllowed;
+        this.trainAllowed = trainAllowed;
+    }
+
     public Integer getMaxDuration() {
         return maxDuration;
     }

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ch.hslu.mobpro.routify.ConnectionActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/connection_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_from" />
+
+            <EditText
+                android:id="@+id/from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@string/exampletext_from" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_to" />
+
+            <EditText
+                android:id="@+id/to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:text="@string/exampletext_to" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/filters_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_duration" />
+
+            <SeekBar
+                android:id="@+id/max_duration_slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <CheckBox
+                android:id="@+id/bus_allowed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onBusAllowedClick"
+                android:text="@string/label_bus_allowed" />
+
+            <CheckBox
+                android:id="@+id/train_allowed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTrainAllowedClick"
+                android:text="@string/label_train_allowed" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_title" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_time_from" />
+
+            <EditText
+                android:id="@+id/time_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_time_to" />
+
+            <EditText
+                android:id="@+id/time_to"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="date" />
+
+            <CheckBox
+                android:id="@+id/monday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onMondayClick"
+                android:text="@string/label_monday" />
+
+            <CheckBox
+                android:id="@+id/tuesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onTuesdayClick"
+                android:text="@string/label_tuesday" />
+
+            <CheckBox
+                android:id="@+id/wednesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onWednesdayClick"
+                android:text="@string/label_wednesday" />
+
+            <CheckBox
+                android:id="@+id/thursday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onThursdayClick"
+                android:text="@string/label_thursday" />
+
+            <CheckBox
+                android:id="@+id/friday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onFridayClick"
+                android:text="@string/label_friday" />
+
+            <CheckBox
+                android:id="@+id/saturday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onSaturdayClick"
+                android:text="@string/label_saturday" />
+
+            <CheckBox
+                android:id="@+id/sunday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onSundayClick"
+                android:text="@string/label_sunday" />
+
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="saveConnection"
+                android:text="@string/save_button_text" />
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
