@@ -1,6 +1,8 @@
 package ch.hslu.mobpro.routify;
 
 import android.content.Intent;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -21,7 +23,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        //DatabaseHelper
         this.databaseHelper = new DatabaseHelper(getApplicationContext());
+        //WidgetManager
+        AppWidgetManager appWidgetManager = this.getSystemService(AppWidgetManager.class);
+        ComponentName provider = new ComponentName(this, RoutifyWidgetProvider.class);
+        if(appWidgetManager.isRequestPinAppWidgetSupported()) {
+            appWidgetManager.requestPinAppWidget(provider, null, null);
+        }
     }
 
     @Override
