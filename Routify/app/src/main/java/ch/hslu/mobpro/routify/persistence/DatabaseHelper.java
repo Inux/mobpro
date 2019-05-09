@@ -3,7 +3,8 @@ package ch.hslu.mobpro.routify.persistence;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,14 +19,16 @@ import ch.hslu.mobpro.routify.model.Settings;
 public class DatabaseHelper {
 
     private RoutifyDatabase routifyDatabase;
+    private Context context;
 
     public DatabaseHelper(Context context) {
+        this.context = context;
         String databaseName = context.getString(R.string.database_name);
         this.routifyDatabase = Room.databaseBuilder(context, RoutifyDatabase.class, databaseName).build();
     }
 
-    public void getAllConnections(TextView textView) {
-        GetConnectionTask getterTask = new GetConnectionTask(routifyDatabase, textView);
+    public void getAllConnections(ListView listView) {
+        GetConnectionTask getterTask = new GetConnectionTask(routifyDatabase, listView, context);
         getterTask.execute();
     }
 
@@ -46,20 +49,20 @@ public class DatabaseHelper {
                 c.getSettings().getSaturday(),
                 c.getSettings().getSunday()
         );
-        //InsertTask insertTask = new InsertTask(routifyDatabase);
         AsyncTask.execute(() -> routifyDatabase.connectionEntityDao().insert(connectionEntity));
-        //insertTask.doInBackground(connectionEntity);
         return connectionEntity.getId();
     }
 
     private static class GetConnectionTask extends AsyncTask<Void, Void, List<ConnectionEntity>> {
 
         private RoutifyDatabase db;
-        private TextView textView;
+        private ListView listView;
+        private Context context;
 
-        GetConnectionTask(RoutifyDatabase routifyDatabase, TextView textView) {
+        GetConnectionTask(RoutifyDatabase routifyDatabase, ListView listView, Context context) {
             this.db = routifyDatabase;
-            this.textView = textView;
+            this.listView = listView;
+            this.context = context;
         }
 
         @Override
@@ -92,7 +95,9 @@ public class DatabaseHelper {
                                 c.getSunday()
                         )));
             }
-            textView.setText(String.valueOf(connectionList.size()));
+            //ArrayAdapter<Connection> arrayAdapter = new ArrayAdapter<Connection>(context, R.layout.connection_item_layout, connectionList);
+            ArrayAdapter<Connection> arrayAdapter = new ArrayAdapter<Connection>(context, android.R.layout.simple_list_item_1, connectionList);
+            listView.setAdapter(arrayAdapter);
         }
     }
 }
