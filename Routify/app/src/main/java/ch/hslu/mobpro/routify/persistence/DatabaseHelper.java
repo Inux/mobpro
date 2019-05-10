@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ch.hslu.mobpro.routify.MainActivity;
 import ch.hslu.mobpro.routify.R;
 import ch.hslu.mobpro.routify.model.Connection;
 import ch.hslu.mobpro.routify.model.Filters;
@@ -129,9 +130,7 @@ public class DatabaseHelper {
 
         @Override
         protected Void doInBackground(Integer... integers) {
-            // Todo: Select the DB entry
             ConnectionEntity entity = db.connectionEntityDao().loadOne(integers[0]);
-            // Todo: Delete it
             db.connectionEntityDao().delete(entity);
             return null;
         }
@@ -139,12 +138,10 @@ public class DatabaseHelper {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            // Todo: Refresh the GUI
-            /*
-            ListView listView = (ListView)findViewById(R.id.connection_listview);
+            MainActivity mainActivity = (MainActivity) context;
+            ListView listView = (ListView) mainActivity.findViewById(R.id.connection_listview);
             listView.setAdapter(null);
             new DatabaseHelper(context).getAllConnections(listView);
-             */
         }
     }
 }
