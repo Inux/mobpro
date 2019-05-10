@@ -1,8 +1,11 @@
 package ch.hslu.mobpro.routify.persistence;
 
+import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -98,6 +101,17 @@ public class DatabaseHelper {
             //ArrayAdapter<Connection> arrayAdapter = new ArrayAdapter<Connection>(context, R.layout.connection_item_layout, connectionList);
             ArrayAdapter<Connection> arrayAdapter = new ArrayAdapter<Connection>(context, android.R.layout.simple_list_item_1, connectionList);
             listView.setAdapter(arrayAdapter);
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Do you want to delete this connection?").setPositiveButton("YES", (dialog, which) -> {
+                        // Delete the connection in the DB
+                        dialog.dismiss();
+                    }).setNegativeButton("NO", (dialog, which) -> dialog.dismiss()).show();
+                    return true;
+                }
+            });
         }
     }
 }

@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         //DatabaseHelper
-        this.databaseHelper = new DatabaseHelper(getApplicationContext());
+        this.databaseHelper = new DatabaseHelper(this);
         //WidgetManager
         AppWidgetManager appWidgetManager = this.getSystemService(AppWidgetManager.class);
         ComponentName provider = new ComponentName(this, RoutifyWidgetProvider.class);
