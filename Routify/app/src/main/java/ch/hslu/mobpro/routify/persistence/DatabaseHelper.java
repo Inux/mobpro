@@ -35,7 +35,7 @@ public class DatabaseHelper {
         getterTask.execute();
     }
 
-    public int saveConnection(Connection c) {
+    public void saveConnection(Connection c) {
         final ConnectionEntity connectionEntity = new ConnectionEntity(
                 c.getFrom(),
                 c.getTo(),
@@ -53,7 +53,6 @@ public class DatabaseHelper {
                 c.getSettings().getSunday()
         );
         AsyncTask.execute(() -> routifyDatabase.connectionEntityDao().insert(connectionEntity));
-        return connectionEntity.getId();
     }
 
     private static class GetConnectionTask extends AsyncTask<Void, Void, List<ConnectionEntity>> {
@@ -79,6 +78,7 @@ public class DatabaseHelper {
             for(ConnectionEntity c : entityList) {
                 Calendar cal = Calendar.getInstance();
                 connectionList.add(new Connection(
+                        c.getId(),
                         c.getFrom(),
                         c.getTo(),
                         new Filters(
@@ -106,12 +106,45 @@ public class DatabaseHelper {
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setMessage("Do you want to delete this connection?").setPositiveButton("YES", (dialog, which) -> {
-                        // Delete the connection in the DB
+                        DeleteConnectionTask deleter = new DeleteConnectionTask(db, context);
+                        deleter.execute(connectionList.get(position).getId());
                         dialog.dismiss();
                     }).setNegativeButton("NO", (dialog, which) -> dialog.dismiss()).show();
                     return true;
                 }
             });
+        }
+    }
+
+
+    private static class DeleteConnectionTask extends AsyncTask<Integer, Void, Void> {
+
+        private RoutifyDatabase db;
+        private Context context;
+
+        DeleteConnectionTask(RoutifyDatabase routifyDatabase, Context context) {
+            this.db = routifyDatabase;
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            // Todo: Select the DB entry
+            ConnectionEntity entity = db.connectionEntityDao().loadOne(integers[0]);
+            // Todo: Delete it
+            db.connectionEntityDao().delete(entity);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            // Todo: Refresh the GUI
+            /*
+            ListView listView = (ListView)findViewById(R.id.connection_listview);
+            listView.setAdapter(null);
+            new DatabaseHelper(context).getAllConnections(listView);
+             */
         }
     }
 }

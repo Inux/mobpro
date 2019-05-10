@@ -1,6 +1,7 @@
 package ch.hslu.mobpro.routify.model;
 
 public class Connection {
+    private int id;
     private String from;
     private String to;
     private Filters filters;
@@ -15,6 +16,19 @@ public class Connection {
         this.to = to;
         this.filters = filters;
         this.settings = settings;
+    }
+
+    public Connection(int id, String from, String to, Filters filters, Settings settings) {
+        this(from, to, filters, settings);
+        this.setId(id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFrom() {
