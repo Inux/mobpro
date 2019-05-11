@@ -4,10 +4,13 @@ import android.app.AlertDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -99,9 +102,9 @@ public class DatabaseHelper {
                                 c.getSunday()
                         )));
             }
-            //ArrayAdapter<Connection> arrayAdapter = new ArrayAdapter<Connection>(context, R.layout.connection_item_layout, connectionList);
-            ArrayAdapter<Connection> arrayAdapter = new ArrayAdapter<Connection>(context, android.R.layout.simple_list_item_1, connectionList);
-            listView.setAdapter(arrayAdapter);
+            //ArrayAdapter<Connection> arrayAdapter = new ArrayAdapter<Connection>(context, android.R.layout.simple_list_item_1, connectionList);
+            ConnectionAdapter connectionAdapter = new ConnectionAdapter(context, connectionList);
+            listView.setAdapter(connectionAdapter);
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -116,8 +119,7 @@ public class DatabaseHelper {
             });
         }
     }
-
-
+    
     private static class DeleteConnectionTask extends AsyncTask<Integer, Void, Void> {
 
         private RoutifyDatabase db;
@@ -142,6 +144,32 @@ public class DatabaseHelper {
             ListView listView = (ListView) mainActivity.findViewById(R.id.connection_listview);
             listView.setAdapter(null);
             new DatabaseHelper(context).getAllConnections(listView);
+        }
+    }
+
+    private static class ConnectionAdapter extends ArrayAdapter<Connection> {
+
+        public ConnectionAdapter(Context context, List<Connection> items) {
+            super(context, 0, items);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View listItemView = convertView;
+            if(listItemView == null) {
+                listItemView = LayoutInflater.from(super.getContext()).inflate(
+                        R.layout.connection_item_layout, parent, false);
+            }
+            Connection getPos = getItem(position);
+
+            TextView listItemFrom = (TextView) listItemView.findViewById(R.id.list_item_from);
+            listItemFrom.setText(getPos.getFrom());
+
+            TextView listItemTo = (TextView) listItemView.findViewById(R.id.list_item_to);
+            listItemTo.setText(getPos.getTo());
+
+            //return super.getView(position, convertView, parent);
+            return listItemView;
         }
     }
 }
