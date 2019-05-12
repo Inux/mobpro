@@ -41,15 +41,19 @@ public class TransportAPI {
     public static List<Connection> getConnections(String from, String to) {
         List<Connection> connections = new ArrayList<>();
 
-        List<Station> fromStations = client.getLocations(from, LocationType.All).getStations();
-        List<Station> toStations = client.getLocations(to, LocationType.All).getStations();
+        try {
+            List<Station> fromStations = client.getLocations(from, LocationType.All).getStations();
+            List<Station> toStations = client.getLocations(to, LocationType.All).getStations();
 
-        if(fromStations.size() > 0 && toStations.size() > 0) {
-            for(Station fromStation : fromStations) {
-                for(Station toStation : toStations) {
-                    connections.add(new Connection(fromStation.getName(), toStation.getName()));
+            if (fromStations.size() > 0 && toStations.size() > 0) {
+                for (Station fromStation : fromStations) {
+                    for (Station toStation : toStations) {
+                        connections.add(new Connection(fromStation.getName(), toStation.getName()));
+                    }
                 }
             }
+        } catch (Exception e) {
+            Log.e("TransportAPI", e.toString());
         }
 
         return connections;
@@ -73,23 +77,27 @@ public class TransportAPI {
             transportationTypes.add(TransportationType.TRAIN);
         }
 
-        connParams.setTransportations(transportationTypes);
-        ConnectionResult connResult = client.getConnections(connParams);
+        try {
+            connParams.setTransportations(transportationTypes);
+            ConnectionResult connResult = client.getConnections(connParams);
 
-        if(connResult.getConnections().size() > 0) {
-            ch.hslu.mobpro.opendata.transport.model.Connection conn = connResult.getConnections().get(0);
+            if(connResult.getConnections().size() > 0) {
+                ch.hslu.mobpro.opendata.transport.model.Connection conn = connResult.getConnections().get(0);
 
-            Log.i("TransportAPI", "actualConnection -> from: '" + conn.getFrom().getStation().getName() +
-                    "', to: '" + conn.getTo().getStation().getName() +
-                    "', departure: '" + conn.getFrom().getDeparture() +
-                    "', timestamp: '" + conn.getFrom().getDepartureTimestamp() + "'");
+                Log.i("TransportAPI", "actualConnection -> from: '" + conn.getFrom().getStation().getName() +
+                        "', to: '" + conn.getTo().getStation().getName() +
+                        "', departure: '" + conn.getFrom().getDeparture() +
+                        "', timestamp: '" + conn.getFrom().getDepartureTimestamp() + "'");
 
-            System.out.println(conn.getFrom().getDepartureTimestamp());
+                System.out.println(conn.getFrom().getDepartureTimestamp());
 
-            return new ActualConnection(
-                    conn.getFrom().getStation().getName(),
-                    conn.getTo().getStation().getName(),
-                    LocalDateTimeHelper.getLocalDateTime(conn.getFrom().getDepartureTimestamp()));
+                return new ActualConnection(
+                        conn.getFrom().getStation().getName(),
+                        conn.getTo().getStation().getName(),
+                        LocalDateTimeHelper.getLocalDateTime(conn.getFrom().getDepartureTimestamp()));
+            }
+        } catch (Exception e) {
+            Log.e("TransportAPI", e.toString());
         }
 
         return null;

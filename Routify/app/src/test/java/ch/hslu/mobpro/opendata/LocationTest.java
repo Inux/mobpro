@@ -7,6 +7,8 @@ import ch.hslu.mobpro.opendata.transport.type.TransportationType;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -21,7 +23,7 @@ public class LocationTest {
     }
 
     @Test
-    public void testLocationByQuery() {
+    public void testLocationByQuery() throws IOException {
         String city = "Basel SBB";
 
         LocationResult result = client.getLocations(city, LocationType.All);
@@ -29,7 +31,7 @@ public class LocationTest {
     }
 
     @Test
-    public void testLocationByCoordinates() {
+    public void testLocationByCoordinates() throws IOException {
         String city = "Basel SBB (Haltestelle)";
 
         double x = 47.5476;

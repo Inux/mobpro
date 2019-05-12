@@ -104,7 +104,11 @@ public class DatabaseHelper {
                                 c.getSunday()
                         )));
             }
-            //ArrayAdapter<Connection> arrayAdapter = new ArrayAdapter<Connection>(context, android.R.layout.simple_list_item_1, connectionList);
+
+            for(Connection conn : connectionList) {
+                conn.update();
+            }
+
             ConnectionAdapter connectionAdapter = new ConnectionAdapter(context, connectionList);
             listView.setAdapter(connectionAdapter);
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

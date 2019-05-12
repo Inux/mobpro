@@ -12,6 +12,7 @@ import ch.hslu.mobpro.opendata.transport.type.LocationType;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
@@ -43,7 +44,7 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testDateConnection() {
+    public void testDateConnection() throws IOException {
         ConnectionParameter params = new ConnectionParameter(city1, city2);
         params.setDateTime(connectionDate);
 
@@ -54,7 +55,7 @@ public class ConnectionTest {
     }
 
     @Test
-    public void testConnectionSearch() {
+    public void testConnectionSearch() throws IOException {
         StationboardResult result = client.getStationboardByStation("Zurich");
         for(Stationboard board : result.getStationboard()) {
             System.out.println(board.getName());

@@ -8,17 +8,23 @@ import ch.hslu.mobpro.opendata.transport.parameter.StationboardParameter;
 import ch.hslu.mobpro.opendata.transport.type.LocationType;
 import ch.hslu.mobpro.opendata.transport.type.TransportationType;
 import ch.hslu.mobpro.opendata.transport.util.BooleanUtils;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Request.Builder;
+import okhttp3.Response;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mashape.unirest.request.HttpRequest;
+
+import java.io.IOException;
+
+import android.util.Log;
 
 /**
  * Handles the connection the open data transport api.
  */
 public class TransportClient {
+    private final OkHttpClient client = new OkHttpClient();
     private final String baseUrl = "http://transport.opendata.ch/v1/";
 
     private final Gson gson;
@@ -34,12 +40,16 @@ public class TransportClient {
      * @param locationType Specifies the location type
      * @return Returns the matching locations for the given parameters.
      */
-    public LocationResult getLocations(String query, LocationType locationType) {
-        HttpRequest request = Unirest.get(baseUrl.concat("locations"))
-                .queryString("query", query)
-                .queryString("type", locationType);
+    public LocationResult getLocations(String query, LocationType locationType) throws IOException {
+        Request request = new Request.Builder()
+                .url(baseUrl.concat("locations"))
+                .addHeader("query", query)
+                .addHeader("type", locationType.toString())
+                .build();
 
-        return gson.fromJson(runRequest(request).getBody(), LocationResult.class);
+        try (Response response = client.newCall(request).execute()) {
+            return gson.fromJson(response.body().string(), LocationResult.class);
+        }
     }
 
     /**
@@ -50,16 +60,19 @@ public class TransportClient {
      * @param transportationTypes Transportation means
      * @return Returns the matching locations for the given parameters.
      */
-    public LocationResult getLocations(double x, double y, TransportationType... transportationTypes) {
-        HttpRequest request = Unirest.get(baseUrl.concat("locations"))
-                .queryString("x", x)
-                .queryString("y", y);
+    public LocationResult getLocations(double x, double y, TransportationType... transportationTypes) throws IOException {
+        Builder builder = new Request.Builder()
+                .url(baseUrl.concat("locations"))
+                .addHeader("x", new Double(x).toString())
+                .addHeader("y", new Double(y).toString());
 
         for (TransportationType t : transportationTypes) {
-            request.queryString("transportations[]", t);
+            builder.addHeader("transportations[]", t.toString());
         }
 
-        return gson.fromJson(runRequest(request).getBody(), LocationResult.class);
+        try (Response response = client.newCall(builder.build()).execute()) {
+            return gson.fromJson(response.body().string(), LocationResult.class);
+        }
     }
 
     /**
@@ -70,7 +83,13 @@ public class TransportClient {
      * @return Returns the next connections from a location to another.
      */
     public ConnectionResult getConnections(String from, String to) {
-        return getConnections(new ConnectionParameter(from, to));
+        try {
+            return getConnections(new ConnectionParameter(from, to));
+        } catch (Exception e) {
+            Log.e("TransportClient", e.toString());
+        }
+
+        return null;
     }
 
     /**
@@ -79,30 +98,34 @@ public class TransportClient {
      * @param params Connections parameter object
      * @return Returns the next connections from a location to another.
      */
-    public ConnectionResult getConnections(ConnectionParameter params) {
-        HttpRequest request = Unirest.get(baseUrl.concat("connections"))
-                .queryString("from", params.getFrom())
-                .queryString("to", params.getTo());
+    public ConnectionResult getConnections(ConnectionParameter params) throws IOException {
+        Builder builder = new Request.Builder()
+                .url(baseUrl.concat("connections"))
+                .addHeader("from", params.getFrom())
+                .addHeader("to", params.getTo());
 
         for (String via : params.getVia()) {
-            request.queryString("via[]", via);
+            builder.addHeader("via[]", via);
         }
 
-        if (params.getDate() != null) request.queryString("date", params.getDate());
-        if (params.getTime() != null) request.queryString("time", params.getTime());
+        if (params.getDate() != null) builder.addHeader("date", params.getDate());
+        if (params.getTime() != null) builder.addHeader("time", params.getTime());
 
         for (TransportationType t : params.getTransportations()) {
-            request.queryString("transportations[]", t);
+            builder.addHeader("transportations[]", t.toString());
         }
 
-        request.queryString("direct", BooleanUtils.toNumeralString(params.isDirect()));
-        request.queryString("sleeper", BooleanUtils.toNumeralString(params.isSleeper()));
-        request.queryString("couchette", BooleanUtils.toNumeralString(params.isCouchette()));
-        request.queryString("bike", BooleanUtils.toNumeralString(params.isBike()));
+        builder.addHeader("direct", BooleanUtils.toNumeralString(params.isDirect()));
+        builder.addHeader("sleeper", BooleanUtils.toNumeralString(params.isSleeper()));
+        builder.addHeader("couchette", BooleanUtils.toNumeralString(params.isCouchette()));
+        builder.addHeader("bike", BooleanUtils.toNumeralString(params.isBike()));
 
-        request.queryString("accessability", params.getAccessability());
+        builder.addHeader("accessability", params.getAccessability().toString());
 
-        return gson.fromJson(runRequest(request).getBody(), ConnectionResult.class);
+
+        try (Response response = client.newCall(builder.build()).execute()) {
+            return gson.fromJson(response.body().string(), ConnectionResult.class);
+        }
     }
 
     /**
@@ -111,7 +134,7 @@ public class TransportClient {
      * @param station Specifies the location of which a stationboard should be returned
      * @return Returns the next connections leaving from a specific location.
      */
-    public StationboardResult getStationboardByStation(final String station) {
+    public StationboardResult getStationboardByStation(final String station) throws IOException {
         return getStationboard(new StationboardParameter() {{
             setId(station);
         }});
@@ -123,7 +146,7 @@ public class TransportClient {
      * @param id The id of the station whose stationboard should be returned
      * @return Returns the next connections leaving from a specific location.
      */
-    public StationboardResult getStationboardById(final String id) {
+    public StationboardResult getStationboardById(final String id) throws IOException {
         return getStationboard(new StationboardParameter() {{
             setId(id);
         }});
@@ -135,29 +158,24 @@ public class TransportClient {
      * @param params Stationboard parameter object
      * @return Returns the next connections leaving from a specific location.
      */
-    public StationboardResult getStationboard(StationboardParameter params) {
-        HttpRequest request = Unirest.get(baseUrl.concat("stationboard"));
+    public StationboardResult getStationboard(StationboardParameter params) throws IOException {
+        Builder builder = new Request.Builder()
+                .url(baseUrl.concat("stationboard"));
 
-        if (params.getStation() != null) request.queryString("station", params.getStation());
-        if (params.getId() != null) request.queryString("id", params.getId());
+        if (params.getStation() != null) builder.addHeader("station", params.getStation());
+        if (params.getId() != null) builder.addHeader("id", params.getId());
 
         for (TransportationType t : params.getTransportations()) {
-            request.queryString("transportations[]", t);
+            builder.addHeader("transportations[]", t.toString());
         }
 
-        if (params.getDateTime() != null) request.queryString("datetime", params.getDateTime());
-        request.queryString("type", params.getDateTimeType());
-        request.queryString("limit", params.getLimit());
+        if (params.getDateTime() != null) builder.addHeader("datetime", params.getDateTime());
+        builder.addHeader("type", params.getDateTimeType().toString());
+        builder.addHeader("limit", new Integer(params.getLimit()).toString());
 
-        return gson.fromJson(runRequest(request).getBody(), StationboardResult.class);
-    }
 
-    private HttpResponse<String> runRequest(HttpRequest request) {
-        try {
-            return request.asString();
-        } catch (UnirestException e) {
-            e.printStackTrace();
+        try (Response response = client.newCall(builder.build()).execute()) {
+            return gson.fromJson(response.body().string(), StationboardResult.class);
         }
-        return null;
     }
 }

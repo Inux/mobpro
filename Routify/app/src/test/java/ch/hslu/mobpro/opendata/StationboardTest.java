@@ -6,6 +6,8 @@ import ch.hslu.mobpro.opendata.transport.parameter.StationboardParameter;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
@@ -26,7 +28,7 @@ public class StationboardTest {
     }
 
     @Test
-    public void testSimpleStationboard() {
+    public void testSimpleStationboard() throws IOException {
         StationboardResult result1 = client.getStationboardByStation(station);
         StationboardResult result2 = client.getStationboardById(id);
 
@@ -36,7 +38,7 @@ public class StationboardTest {
     }
 
     @Test
-    public void testEnhancedStationboard() {
+    public void testEnhancedStationboard() throws IOException {
         StationboardParameter param = new StationboardParameter();
         param.setStation(station);
         param.setLimit(1);
