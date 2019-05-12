@@ -5,8 +5,11 @@ import java.util.List;
 
 import ch.hslu.mobpro.opendata.transport.TransportClient;
 import ch.hslu.mobpro.opendata.transport.model.Station;
+import ch.hslu.mobpro.opendata.transport.parameter.ConnectionParameter;
 import ch.hslu.mobpro.opendata.transport.type.LocationType;
+import ch.hslu.mobpro.routify.model.ActualConnection;
 import ch.hslu.mobpro.routify.model.Connection;
+import ch.hslu.mobpro.routify.model.Filters;
 
 /**
  * TransportAPI is a small wrapper for the opendata API
@@ -40,5 +43,15 @@ public class TransportAPI {
         }
 
         return connections;
+    }
+
+    public static ActualConnection getActualConnection(String from, String to, Filters filters) {
+        boolean busAllowed = filters.getBusAllowed();
+        boolean trainAllowed = filters.getTrainAllowed();
+        client.getConnections(new ConnectionParameter().s);
+
+        Integer maxDuration = filters.getMaxDuration();
+
+
     }
 }
