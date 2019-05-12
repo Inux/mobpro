@@ -7,7 +7,7 @@
     <string name="connection_title">Connection</string>
     <string name="label_from">Start</string>
     <string name="exampletext_from" />
-    <string name="label_to">Destination</string>
+    <string name="to_label">To:</string>
     <string name="exampletext_to" />
     <string name="filters_title">Filters</string>
     <string name="label_duration">Maximum Duration</string>
@@ -25,4 +25,5 @@
     <string name="label_sunday">Sunday</string>
     <string name="save_button_text">Save</string>
     <string name="add_connection">+</string>
+    <string name="departure_label">Departure:</string>
 </resources>

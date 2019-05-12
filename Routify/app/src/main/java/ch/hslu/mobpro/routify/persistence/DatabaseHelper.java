@@ -105,10 +105,6 @@ public class DatabaseHelper {
                         )));
             }
 
-            for(Connection conn : connectionList) {
-                conn.update();
-            }
-
             ConnectionAdapter connectionAdapter = new ConnectionAdapter(context, connectionList);
             listView.setAdapter(connectionAdapter);
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -173,6 +169,10 @@ public class DatabaseHelper {
 
             TextView listItemTo = (TextView) listItemView.findViewById(R.id.list_item_to);
             listItemTo.setText(getPos.getTo());
+
+            TextView listItemDeparture = (TextView) listItemView.findViewById(R.id.list_item_departure);
+            getPos.setDuration(listItemDeparture);
+            getPos.execute();
 
             //return super.getView(position, convertView, parent);
             return listItemView;
