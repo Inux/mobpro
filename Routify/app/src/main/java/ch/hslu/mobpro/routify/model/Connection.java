@@ -1,6 +1,8 @@
 package ch.hslu.mobpro.routify.model;
 
 import android.util.Log;
+
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 import ch.hslu.mobpro.routify.api.TransportAPI;
@@ -47,6 +49,7 @@ public class Connection {
 
     /*
      Check if a update is running in the Background
+
      */
     public boolean isUpdateRunning() {
         return this.thread.isAlive();

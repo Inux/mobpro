@@ -7,6 +7,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import java.time.DayOfWeek;
+
 import ch.hslu.mobpro.routify.model.Connection;
 import ch.hslu.mobpro.routify.model.Filters;
 import ch.hslu.mobpro.routify.model.Settings;
@@ -46,13 +48,13 @@ public class ConnectionActivity extends AppCompatActivity {
         CheckBox friday = (CheckBox)findViewById(R.id.friday);
         CheckBox saturday = (CheckBox)findViewById(R.id.saturday);
         CheckBox sunday = (CheckBox)findViewById(R.id.sunday);
-        monday.setChecked(settings.getMonday());
-        tuesday.setChecked(settings.getTuesday());
-        wednesday.setChecked(settings.getWednesday());
-        thursday.setChecked(settings.getThursday());
-        friday.setChecked(settings.getFriday());
-        saturday.setChecked(settings.getSaturday());
-        sunday.setChecked(settings.getSunday());
+        monday.setChecked(settings.isDayEnabled(DayOfWeek.MONDAY));
+        tuesday.setChecked(settings.isDayEnabled(DayOfWeek.TUESDAY));
+        wednesday.setChecked(settings.isDayEnabled(DayOfWeek.WEDNESDAY));
+        thursday.setChecked(settings.isDayEnabled(DayOfWeek.THURSDAY));
+        friday.setChecked(settings.isDayEnabled(DayOfWeek.FRIDAY));
+        saturday.setChecked(settings.isDayEnabled(DayOfWeek.SATURDAY));
+        sunday.setChecked(settings.isDayEnabled(DayOfWeek.SUNDAY));
     }
 
     private void loadDefaultFilters() {
@@ -103,63 +105,63 @@ public class ConnectionActivity extends AppCompatActivity {
     public void onMondayClick(View view) {
         CheckBox monday = (CheckBox)findViewById(R.id.monday);
         if(monday.isChecked()){
-            settings.setMonday(true);
+            settings.setDayEnabled(DayOfWeek.MONDAY);
         } else {
-            settings.setMonday(false);
+            settings.setDayDisabled(DayOfWeek.MONDAY);
         }
     }
 
     public void onTuesdayClick(View view) {
         CheckBox tuesday = (CheckBox)findViewById(R.id.tuesday);
         if(tuesday.isChecked()){
-            settings.setTuesday(true);
+            settings.setDayEnabled(DayOfWeek.THURSDAY);
         } else {
-            settings.setTuesday(false);
+            settings.setDayDisabled(DayOfWeek.THURSDAY);
         }
     }
 
     public void onWednesdayClick(View view) {
         CheckBox wednesday = (CheckBox)findViewById(R.id.wednesday);
         if(wednesday.isChecked()){
-            settings.setWednesday(true);
+            settings.setDayEnabled(DayOfWeek.WEDNESDAY);
         } else {
-            settings.setWednesday(false);
+            settings.setDayDisabled(DayOfWeek.WEDNESDAY);
         }
     }
 
     public void onThursdayClick(View view) {
         CheckBox thursday = (CheckBox)findViewById(R.id.thursday);
         if(thursday.isChecked()){
-            settings.setThursday(true);
+            settings.setDayEnabled(DayOfWeek.THURSDAY);
         } else {
-            settings.setThursday(false);
+            settings.setDayDisabled(DayOfWeek.THURSDAY);
         }
     }
 
     public void onFridayClick(View view) {
         CheckBox friday = (CheckBox)findViewById(R.id.friday);
         if(friday.isChecked()){
-            settings.setFriday(true);
+            settings.setDayEnabled(DayOfWeek.FRIDAY);
         } else {
-            settings.setFriday(false);
+            settings.setDayDisabled(DayOfWeek.FRIDAY);
         }
     }
 
     public void onSaturdayClick(View view) {
         CheckBox saturday = (CheckBox)findViewById(R.id.saturday);
         if(saturday.isChecked()){
-            settings.setSaturday(true);
+            settings.setDayEnabled(DayOfWeek.SATURDAY);
         } else {
-            settings.setSaturday(false);
+            settings.setDayDisabled(DayOfWeek.SATURDAY);
         }
     }
 
     public void onSundayClick(View view) {
         CheckBox sunday = (CheckBox)findViewById(R.id.sunday);
         if(sunday.isChecked()){
-            settings.setSunday(true);
+            settings.setDayEnabled(DayOfWeek.SUNDAY);
         } else {
-            settings.setSunday(false);
+            settings.setDayDisabled(DayOfWeek.SUNDAY);
         }
     }
 }

@@ -1,5 +1,6 @@
 package ch.hslu.mobpro.routify.api;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,10 +49,10 @@ public class TransportAPI {
     public static ActualConnection getActualConnection(String from, String to, Filters filters) {
         boolean busAllowed = filters.getBusAllowed();
         boolean trainAllowed = filters.getTrainAllowed();
-        client.getConnections(new ConnectionParameter().s);
+        //client.getConnections(new ConnectionParameter().s);
 
         Integer maxDuration = filters.getMaxDuration();
 
-
+        return new ActualConnection("h", "b", LocalDateTime.now());
     }
 }

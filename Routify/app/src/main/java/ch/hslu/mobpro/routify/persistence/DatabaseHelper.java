@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,13 +49,13 @@ public class DatabaseHelper {
                 c.getFilters().getTrainAllowed(),
                 c.getSettings().getShowFrom().toString(), // Todo: LocalDateTime
                 c.getSettings().getShowTo().toString(), // Todo: LocalDateTime
-                c.getSettings().getMonday(),
-                c.getSettings().getTuesday(),
-                c.getSettings().getWednesday(),
-                c.getSettings().getThursday(),
-                c.getSettings().getFriday(),
-                c.getSettings().getSaturday(),
-                c.getSettings().getSunday()
+                c.getSettings().isDayEnabled(DayOfWeek.MONDAY),
+                c.getSettings().isDayEnabled(DayOfWeek.THURSDAY),
+                c.getSettings().isDayEnabled(DayOfWeek.WEDNESDAY),
+                c.getSettings().isDayEnabled(DayOfWeek.THURSDAY),
+                c.getSettings().isDayEnabled(DayOfWeek.FRIDAY),
+                c.getSettings().isDayEnabled(DayOfWeek.SATURDAY),
+                c.getSettings().isDayEnabled(DayOfWeek.SUNDAY)
         );
         AsyncTask.execute(() -> routifyDatabase.connectionEntityDao().insert(connectionEntity));
     }
@@ -81,6 +82,7 @@ public class DatabaseHelper {
             ArrayList<Connection> connectionList = new ArrayList<>();
             for(ConnectionEntity c : entityList) {
                 Calendar cal = Calendar.getInstance();
+
                 connectionList.add(new Connection(
                         c.getId(),
                         c.getFrom(),
