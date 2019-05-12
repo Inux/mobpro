@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import ch.hslu.mobpro.routify.model.Connection;
 import ch.hslu.mobpro.routify.model.Filters;
@@ -60,6 +61,25 @@ public class ConnectionActivity extends AppCompatActivity {
         CheckBox trainAllowed = (CheckBox)findViewById(R.id.train_allowed);
         busAllowed.setChecked(filters.getBusAllowed());
         trainAllowed.setChecked(filters.getTrainAllowed());
+    }
+
+
+    public void toggleFilters(View view) {
+        LinearLayout filtersView = (LinearLayout) findViewById(R.id.filters_view);
+        if (filtersView.getVisibility() == View.VISIBLE) {
+            filtersView.setVisibility(View.GONE);
+        } else {
+            filtersView.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void toggleSettings(View view) {
+        LinearLayout settingsView = (LinearLayout) findViewById(R.id.settings_view);
+        if (settingsView.getVisibility() == View.VISIBLE) {
+            settingsView.setVisibility(View.GONE);
+        } else {
+            settingsView.setVisibility(View.VISIBLE);
+        }
     }
 
     public void onBusAllowedClick(View view) {

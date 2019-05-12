@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import ch.hslu.mobpro.routify.api.TransportAPI;
 
 public class Connection {
+    private int id;
     private String from;
     private String to;
     private Filters filters;
@@ -49,6 +50,19 @@ public class Connection {
      */
     public boolean isUpdateRunning() {
         return this.thread.isAlive();
+    }
+
+    public Connection(int id, String from, String to, Filters filters, Settings settings) {
+        this(from, to, filters, settings);
+        this.setId(id);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFrom() {
