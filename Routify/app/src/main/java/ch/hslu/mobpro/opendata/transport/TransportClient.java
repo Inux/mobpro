@@ -11,6 +11,7 @@ import ch.hslu.mobpro.opendata.transport.util.BooleanUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
+import okhttp3.HttpUrl;
 import okhttp3.Response;
 
 import com.google.gson.Gson;
@@ -41,12 +42,12 @@ public class TransportClient {
      * @return Returns the matching locations for the given parameters.
      */
     public LocationResult getLocations(String query, LocationType locationType) throws IOException {
-        Request request = new Request.Builder()
-                .url(baseUrl.concat("locations"))
-                .addHeader("query", query)
-                .addHeader("type", locationType.toString())
-                .build();
+        HttpUrl url = HttpUrl.parse(baseUrl.concat("locations")).newBuilder()
+        .addQueryParameter("query", query)
+        .addQueryParameter("type", locationType.toString()).build();
 
+
+        Request request = new Request.Builder().url(url).build();
         try (Response response = client.newCall(request).execute()) {
             return gson.fromJson(response.body().string(), LocationResult.class);
         }
@@ -61,16 +62,16 @@ public class TransportClient {
      * @return Returns the matching locations for the given parameters.
      */
     public LocationResult getLocations(double x, double y, TransportationType... transportationTypes) throws IOException {
-        Builder builder = new Request.Builder()
-                .url(baseUrl.concat("locations"))
-                .addHeader("x", new Double(x).toString())
-                .addHeader("y", new Double(y).toString());
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl.concat("locations")).newBuilder()
+                .addQueryParameter("x", new Double(x).toString())
+                .addQueryParameter("y", new Double(y).toString());
 
         for (TransportationType t : transportationTypes) {
-            builder.addHeader("transportations[]", t.toString());
+            builder.addQueryParameter("transportations[]", t.toString());
         }
 
-        try (Response response = client.newCall(builder.build()).execute()) {
+        Request request = new Request.Builder().url(builder.build()).build();
+        try (Response response = client.newCall(request).execute()) {
             return gson.fromJson(response.body().string(), LocationResult.class);
         }
     }
@@ -99,31 +100,31 @@ public class TransportClient {
      * @return Returns the next connections from a location to another.
      */
     public ConnectionResult getConnections(ConnectionParameter params) throws IOException {
-        Builder builder = new Request.Builder()
-                .url(baseUrl.concat("connections"))
-                .addHeader("from", params.getFrom())
-                .addHeader("to", params.getTo());
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl.concat("connections")).newBuilder()
+                .addQueryParameter("from", params.getFrom())
+                .addQueryParameter("to", params.getTo());
 
         for (String via : params.getVia()) {
-            builder.addHeader("via[]", via);
+            builder.addQueryParameter("via[]", via);
         }
 
-        if (params.getDate() != null) builder.addHeader("date", params.getDate());
-        if (params.getTime() != null) builder.addHeader("time", params.getTime());
+        if (params.getDate() != null) builder.addQueryParameter("date", params.getDate());
+        if (params.getTime() != null) builder.addQueryParameter("time", params.getTime());
 
         for (TransportationType t : params.getTransportations()) {
-            builder.addHeader("transportations[]", t.toString());
+            builder.addQueryParameter("transportations[]", t.toString());
         }
 
-        builder.addHeader("direct", BooleanUtils.toNumeralString(params.isDirect()));
-        builder.addHeader("sleeper", BooleanUtils.toNumeralString(params.isSleeper()));
-        builder.addHeader("couchette", BooleanUtils.toNumeralString(params.isCouchette()));
-        builder.addHeader("bike", BooleanUtils.toNumeralString(params.isBike()));
+        builder.addQueryParameter("direct", BooleanUtils.toNumeralString(params.isDirect()));
+        builder.addQueryParameter("sleeper", BooleanUtils.toNumeralString(params.isSleeper()));
+        builder.addQueryParameter("couchette", BooleanUtils.toNumeralString(params.isCouchette()));
+        builder.addQueryParameter("bike", BooleanUtils.toNumeralString(params.isBike()));
 
-        builder.addHeader("accessability", params.getAccessability().toString());
+        builder.addQueryParameter("accessability", params.getAccessability().toString());
 
 
-        try (Response response = client.newCall(builder.build()).execute()) {
+        Request request = new Request.Builder().url(builder.build()).build();
+        try (Response response = client.newCall(request).execute()) {
             return gson.fromJson(response.body().string(), ConnectionResult.class);
         }
     }
@@ -159,22 +160,22 @@ public class TransportClient {
      * @return Returns the next connections leaving from a specific location.
      */
     public StationboardResult getStationboard(StationboardParameter params) throws IOException {
-        Builder builder = new Request.Builder()
-                .url(baseUrl.concat("stationboard"));
+        HttpUrl.Builder builder = HttpUrl.parse(baseUrl.concat("stationboard")).newBuilder();
 
-        if (params.getStation() != null) builder.addHeader("station", params.getStation());
-        if (params.getId() != null) builder.addHeader("id", params.getId());
+        if (params.getStation() != null) builder.addQueryParameter("station", params.getStation());
+        if (params.getId() != null) builder.addQueryParameter("id", params.getId());
 
         for (TransportationType t : params.getTransportations()) {
-            builder.addHeader("transportations[]", t.toString());
+            builder.addQueryParameter("transportations[]", t.toString());
         }
 
-        if (params.getDateTime() != null) builder.addHeader("datetime", params.getDateTime());
-        builder.addHeader("type", params.getDateTimeType().toString());
-        builder.addHeader("limit", new Integer(params.getLimit()).toString());
+        if (params.getDateTime() != null) builder.addQueryParameter("datetime", params.getDateTime());
+        builder.addQueryParameter("type", params.getDateTimeType().toString());
+        builder.addQueryParameter("limit", String.valueOf(params.getLimit()));
 
 
-        try (Response response = client.newCall(builder.build()).execute()) {
+        Request request = new Request.Builder().url(builder.build()).build();
+        try (Response response = client.newCall(request).execute()) {
             return gson.fromJson(response.body().string(), StationboardResult.class);
         }
     }
