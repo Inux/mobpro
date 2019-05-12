@@ -173,7 +173,7 @@ public class DatabaseHelper {
 
             TextView listItemDeparture = (TextView) listItemView.findViewById(R.id.list_item_departure);
             getPos.setDuration(listItemDeparture);
-            getPos.execute();
+            getPos.update();
             ConnectionRegistry.getInstance().register(getPos);
 
             //return super.getView(position, convertView, parent);

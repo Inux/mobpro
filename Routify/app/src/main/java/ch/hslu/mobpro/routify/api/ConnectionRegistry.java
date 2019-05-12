@@ -1,5 +1,7 @@
 package ch.hslu.mobpro.routify.api;
 
+import android.os.AsyncTask;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,28 +32,36 @@ public class ConnectionRegistry {
     }
 
     public void update() {
-        for(Connection c : this.connections) {
-            c.execute();
+        synchronized (lock) {
+            for(Connection c : this.connections) {
+                c.update();
+            }
         }
     }
 
     public void unregister(Connection conn) {
-        this.connections.remove(conn);
+        synchronized (lock) {
+            this.connections.remove(conn);
+        }
     }
 
     public ActualConnection getNextActualConnection() {
-        List<Connection> validConnections = this.connections.stream()
-                .filter(c -> c.getActualConnection() != null)
-                .collect(Collectors.toList());
+        this.update();
 
-        ActualConnection actualConnection = null;
-        for(Connection c : validConnections) {
-            if(actualConnection == null ||
-                    c.getActualConnection().getDateTime().compareTo(actualConnection.getDateTime()) < 0) {
-                actualConnection = c.getActualConnection();
+        synchronized (lock) {
+            List<Connection> validConnections = this.connections.stream()
+                    .filter(c -> c.getActualConnection() != null)
+                    .collect(Collectors.toList());
+
+            ActualConnection actualConnection = null;
+            for(Connection c : validConnections) {
+                if(actualConnection == null ||
+                        c.getActualConnection().getDateTime().compareTo(actualConnection.getDateTime()) < 0) {
+                    actualConnection = c.getActualConnection();
+                }
             }
-        }
 
-        return actualConnection;
+            return actualConnection;
+        }
     }
 }

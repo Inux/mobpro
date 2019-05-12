@@ -6,9 +6,13 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import ch.hslu.mobpro.routify.api.ConnectionRegistry;
 import ch.hslu.mobpro.routify.model.ActualConnection;
@@ -17,6 +21,10 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class RoutifyWidgetProvider extends AppWidgetProvider {
     final private String WIDGET_INITIALIZED = "WIDGET_INITIALIZED";
+
+    final Handler handler = new Handler();
+    Timer timer = new Timer();
+    TimerTask task = null;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.routify_widget);
@@ -38,6 +46,21 @@ public class RoutifyWidgetProvider extends AppWidgetProvider {
 
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+
+        if(this.task == null) {
+            this.task = new TimerTask() {
+
+                @Override
+                public void run() {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            onUpdate(context, appWidgetManager, appWidgetIds);
+                        }
+                    });
+                }
+            };
+            timer.scheduleAtFixedRate(task, 0, 60 * 1000);
         }
     }
 

@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import ch.hslu.mobpro.routify.api.TransportAPI;
 
-public class Connection extends AsyncTask<String, Void, ActualConnection> {
+public class Connection {
     private int id;
     private String from;
     private String to;
@@ -36,11 +36,30 @@ public class Connection extends AsyncTask<String, Void, ActualConnection> {
         return actualConnection;
     }
 
+    public void setActualConnection(ActualConnection actualConn) {
+        this.actualConnection = actualConn;
+    }
+
     /*
      set Duration textView
      */
     public void setDuration(TextView textView) {
         this.duration = textView;
+    }
+
+    public void update() {
+        if(isTodayValid() && isTimeSlotValid()) {
+            new ActualConnection(
+                    this.from,
+                    this.to
+            ).execute(this);
+        } else {
+            this.duration.setText("disabled (filters)");
+        }
+    }
+
+    public TextView getDuration() {
+        return this.duration;
     }
 
     public Connection(int id, String from, String to, Filters filters, Settings settings) {
@@ -103,33 +122,5 @@ public class Connection extends AsyncTask<String, Void, ActualConnection> {
             return true;
         }
         return false;
-    }
-
-    @Override
-    protected ActualConnection doInBackground(String... strings) {
-        if(isTodayValid() && isTimeSlotValid()) {
-            Log.i("Connection", "searching for ActualConnection");
-            this.actualConnection = TransportAPI.getActualConnection(this.from, this.to, this.filters);
-        }
-        else {
-            this.actualConnection = null; // no valid connection possible found!
-        }
-
-        if(this.actualConnection != null) {
-            Log.i("Connection", "new ActualConnection");
-        } else {
-            Log.i("Connection", "no ActualConnection!");
-        }
-
-        if(this.duration != null && this.actualConnection != null) {
-            this.duration.post(() -> {
-                Log.i("Connection", "setText of Duration label");
-                LocalDateTime ldt = this.actualConnection.getDateTime();
-
-                this.duration.setText(ldt.toLocalTime().toString());
-            });
-        }
-
-        return this.actualConnection;
     }
 }
