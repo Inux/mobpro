@@ -4,16 +4,11 @@ package ch.hslu.mobpro.opendata.transport.type;
  * Created by haubschueh & inux (2019)
  */
 public enum TransportationType {
-    ICE_TGV_RJ("ice_tgv_rj"),
-    EC_IC("ec_ic"),
-    IR("ir"),
-    RE_D("re_d"),
-    SHIP("ship"),
-    S_SN_R("s_sn_r"),
+    TRAIN("train"),
+    TRAM( "tram"),
+    SHIP( "ship"),
     BUS("bus"),
-    CABLEWAY("cableway"),
-    ARZ_EXT("arz_ext"),
-    TRAMWAY_UNDERGROUND("tramway_underground");
+    CABLEWAY("cableway");
 
     private final String text;
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class Settings {
     private LocalDateTime showFrom;
     private LocalDateTime showTo;
-    private List<DayOfWeek> disabledDays;
+    private List<DayOfWeek> disabledDays = new ArrayList<>();
 
     public Settings() {
         Calendar c = Calendar.getInstance();

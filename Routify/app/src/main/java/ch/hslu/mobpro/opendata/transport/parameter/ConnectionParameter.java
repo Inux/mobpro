@@ -90,6 +90,10 @@ public class ConnectionParameter {
         return transportations;
     }
 
+    public void setTransportations(List<TransportationType> transportationTypes) {
+        this.transportations = transportationTypes;
+    }
+
     public int getLimit() {
         return limit;
     }

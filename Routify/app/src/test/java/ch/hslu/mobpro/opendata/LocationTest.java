@@ -35,7 +35,7 @@ public class LocationTest {
         double x = 47.5476;
         double y = 7.5897;
 
-        LocationResult result = client.getLocations(x, y, TransportationType.ICE_TGV_RJ);
+        LocationResult result = client.getLocations(x, y, TransportationType.TRAIN);
         assertEquals("Locations not matching!", city, result.getStations().get(0).getName());
     }
 }
