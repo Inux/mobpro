@@ -20,6 +20,7 @@ import java.util.List;
 
 import ch.hslu.mobpro.routify.MainActivity;
 import ch.hslu.mobpro.routify.R;
+import ch.hslu.mobpro.routify.api.ConnectionRegistry;
 import ch.hslu.mobpro.routify.model.Connection;
 import ch.hslu.mobpro.routify.model.Filters;
 import ch.hslu.mobpro.routify.model.Settings;
@@ -173,6 +174,7 @@ public class DatabaseHelper {
             TextView listItemDeparture = (TextView) listItemView.findViewById(R.id.list_item_departure);
             getPos.setDuration(listItemDeparture);
             getPos.execute();
+            ConnectionRegistry.getInstance().register(getPos);
 
             //return super.getView(position, convertView, parent);
             return listItemView;

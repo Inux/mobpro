@@ -125,9 +125,8 @@ public class Connection extends AsyncTask<String, Void, ActualConnection> {
             this.duration.post(() -> {
                 Log.i("Connection", "setText of Duration label");
                 LocalDateTime ldt = this.actualConnection.getDateTime();
-                String time = ldt.getHour()+":"+ldt.getMinute();
 
-                this.duration.setText(time);
+                this.duration.setText(ldt.toLocalTime().toString());
             });
         }
 
